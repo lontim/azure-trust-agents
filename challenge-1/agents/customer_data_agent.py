@@ -17,6 +17,10 @@ model_deployment_name = os.environ.get("MODEL_DEPLOYMENT_NAME")
 cosmos_endpoint = os.environ.get("COSMOS_ENDPOINT")
 cosmos_key = os.environ.get("COSMOS_KEY")
 
+# Debug: Print the values
+print(f"Debug: cosmos_endpoint = {cosmos_endpoint}")
+print(f"Debug: cosmos_key = {'*' * len(cosmos_key) if cosmos_key else None}")
+
 # Initialize Cosmos DB clients globally for function tools
 cosmos_client = CosmosClient(cosmos_endpoint, cosmos_key)
 database = cosmos_client.get_database_client("FinancialComplianceDB")

@@ -5,5 +5,15 @@
     "azureFunctions.projectLanguage": "Python",
     "azureFunctions.projectRuntime": "~4",
     "debug.internalConsoleOptions": "neverOpen",
-    "azureFunctions.projectSubpath": "challenge-1/regulation-trigger"
+    "azureFunctions.projectSubpath": "challenge-1/regulation-trigger",
+    "chat.tools.terminal.autoApprove": {
+        "/^python customer_data_agent\\.py$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^az group list --query \"\\[\\?contains\\(name, 'msagthack'\\)\\]\\.name\" -o tsv$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
 }
