@@ -321,6 +321,49 @@ You can find the workflow result displayed in green at the bottom of your screen
 
 Please note, DevUI is intended for development and visualization purposes only. From this point forward, we will return to coding!
 
+## Environment Configuration and Helper Scripts
+
+### Populating the .env File
+
+To run the agents locally, you need to configure the environment variables in the `.env` file. A helper script `populate_env.py` is provided in the root directory to automate this process.
+
+The script retrieves all necessary Azure resource parameters and keys from your deployed resources and populates the `.env` file automatically.
+
+**Usage:**
+```bash
+python populate_env.py <your-resource-group-name>
+```
+
+For example:
+```bash
+python populate_env.py rg-user01-pnw2026
+```
+
+This script will:
+- Find the ARM deployment in your resource group
+- Extract all deployment outputs (endpoints, names, etc.)
+- Retrieve API keys for Cosmos DB, Storage, AI Search, AI Foundry, and ACR
+- Generate the complete `.env` file with all required variables
+
+**Note:** The `.env` file contains sensitive information and is automatically ignored by Git. Never commit it to version control.
+
+### Debugging and Troubleshooting
+
+The `customer_data_agent.py` includes debug logging to help troubleshoot connection issues:
+
+```python
+# Debug: Print the values
+print(f"Debug: cosmos_endpoint = {cosmos_endpoint}")
+print(f"Debug: cosmos_key = {'*' * len(cosmos_key) if cosmos_key else None}")
+```
+
+This will output the Cosmos DB endpoint and mask the key for security. If you see `None` values, ensure your `.env` file is properly populated.
+
+Common issues:
+- **Cosmos DB connection fails**: Verify `COSMOS_ENDPOINT` and `COSMOS_KEY` in `.env`
+- **AI Foundry authentication error**: Check `AI_FOUNDRY_PROJECT_ENDPOINT` and `MODEL_DEPLOYMENT_NAME`
+- **Model not found**: Ensure the model deployment exists in your AI Foundry project
+
 ## Conclusion 🎉
 
 Congratulations! You've successfully built a sophisticated **3-agent fraud detection pipeline** using the Microsoft Agent Framework. This implementation showcases how specialized AI agents can work together seamlessly to create enterprise-grade compliance solutions. You've learned to orchestrate Customer Data, Risk Analysis, and Compliance Reporting agents using the Sequential Builder pattern, demonstrating real-world fraud detection capabilities with automated risk scoring, regulatory compliance checks, and audit trail generation.
