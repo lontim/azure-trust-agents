@@ -14,9 +14,12 @@ fi
 
 echo "🚀 Starting data seeding..."
 
-# Install required Python packages
-echo "📦 Installing required Python packages..."
-pip3 install azure-cosmos azure-search-documents requests --quiet
+# Use parent venv with uv
+echo "📦 Setting up Python environment with uv..."
+cd "$(dirname "$0")/.."
+source .venv/bin/activate
+uv pip install azure-cosmos azure-search-documents requests --quiet
+cd - > /dev/null
 
 # Create Python script to handle the data import
 cat > seed_data.py << 'EOF'
